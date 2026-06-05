@@ -1,0 +1,21 @@
+{
+  "name": "FoodieDash Pro",
+  "short_name": "FoodieDash",
+  "description": "Premium Food Delivery App",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#667eea",
+  "background_color": "#ffffff",
+  "icons": [
+    {
+      "src": "https://via.placeholder.com/192/667eea/white?text=FD",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://via.placeholder.com/512/667eea/white?text=FD",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

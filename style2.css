@@ -1,0 +1,316 @@
+.promo-section {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0;
+    padding: 15px 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+.promo-section input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+.promo-section button {
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.cart-summary {
+    margin: 15px 0;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-size: 14px;
+}
+
+.total-row {
+    font-size: 18px;
+    font-weight: 700;
+    border-top: 2px solid #eee;
+    margin-top: 10px;
+    padding-top: 15px;
+}
+
+.checkout-btn, .place-order-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+/* Checkout Form */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+}
+
+.form-group textarea, .form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    font-family: inherit;
+    resize: vertical;
+}
+
+.estimated-time {
+    background: #f0f9ff;
+    padding: 12px;
+    border-radius: 12px;
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #667eea;
+}
+
+/* Tracking Steps */
+.tracking-steps {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px 0;
+    position: relative;
+}
+
+.tracking-steps::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 10%;
+    width: 80%;
+    height: 2px;
+    background: #e0e0e0;
+    z-index: 0;
+}
+
+.step {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    background: white;
+    flex: 1;
+}
+
+.step i {
+    font-size: 24px;
+    background: #e0e0e0;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+    color: #999;
+}
+
+.step.completed i {
+    background: #25D366;
+    color: white;
+}
+
+.step.active i {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.step span {
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.tracking-status {
+    text-align: center;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    margin: 15px 0;
+    font-weight: 600;
+}
+
+.tracking-timer {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    color: #667eea;
+}
+
+/* Rating Stars */
+.stars {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.stars i {
+    font-size: 40px;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #ddd;
+}
+
+.stars i.active {
+    color: #ffc107;
+}
+
+#reviewText {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    font-family: inherit;
+    resize: vertical;
+}
+
+.submit-rating-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Toast Notification */
+.toast {
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-size: 14px;
+    z-index: 1100;
+    display: none;
+    white-space: nowrap;
+}
+
+.toast.show {
+    display: block;
+    animation: fadeInUp 0.3s ease;
+}
+
+/* Auth Modal */
+.auth-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #eee;
+}
+
+.auth-tab {
+    flex: 1;
+    padding: 12px;
+    background: none;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    color: #999;
+}
+
+.auth-tab.active {
+    color: #667eea;
+    border-bottom: 2px solid #667eea;
+}
+
+.auth-form {
+    display: none;
+}
+
+.auth-form.active {
+    display: block;
+}
+
+.auth-form h3 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.auth-input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 12px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    font-size: 14px;
+}
+
+.auth-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.demo-hint {
+    text-align: center;
+    font-size: 11px;
+    color: #999;
+    margin-top: 15px;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Empty States */
+.empty-cart {
+    text-align: center;
+    padding: 40px;
+    color: #999;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .modal-content {
+        width: 95%;
+        margin: 10px;
+    }
+}
