@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#667eea">
+    <meta name="description" content="Professional Food Delivery App - Order your favorite food online">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="https://via.placeholder.com/192/667eea/white?text=FD">
+    <title>FoodieDash Pro | Premium Food Delivery</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Auth Modal -->
+        <div id="authModal" class="modal">
+            <div class="modal-content">
+                <div class="auth-tabs">
+                    <button class="auth-tab active" onclick="switchAuthTab('login')">Login</button>
+                    <button class="auth-tab" onclick="switchAuthTab('signup')">Sign Up</button>
+                </div>
+                
+                <!-- Login Form -->
+                <div id="loginForm" class="auth-form active">
+                    <h3>Welcome Back! 👋</h3>
+                    <input type="text" id="loginPhone" placeholder="Phone Number" class="auth-input">
+                    <input type="password" id="loginPassword" placeholder="Password" class="auth-input">
+                    <button onclick="login()" class="auth-btn">Login</button>
+                    <p class="demo-hint">Demo: Phone: 1234567890, Password: demo123</p>
+                </div>
+                
+                <!-- Signup Form -->
+                <div id="signupForm" class="auth-form">
+                    <h3>Create Account 🚀</h3>
+                    <input type="text" id="signupName" placeholder="Full Name" class="auth-input">
+                    <input type="text" id="signupPhone" placeholder="Phone Number" class="auth-input">
+                    <input type="email" id="signupEmail" placeholder="Email (optional)" class="auth-input">
+                    <input type="password" id="signupPassword" placeholder="Password" class="auth-input">
+                    <button onclick="signup()" class="auth-btn">Sign Up</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main App (Hidden until login) -->
+        <div id="mainApp" style="display: none;">
+            <!-- Header with User Info -->
+            <div class="header">
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar">👤</div>
+                    <div>
+                        <p class="welcome-text">Welcome back,</p>
+                        <h3 id="userName">User</h3>
+                    </div>
+                </div>
+                <div class="header-icons">
+                    <i class="fas fa-bell" onclick="toggleNotifications()"></i>
+                    <i class="fas fa-sign-out-alt" onclick="logout()"></i>
+                </div>
+            </div>
+
+            <!-- Search & Filter -->
+            <div class="search-section">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search for food...">
+                </div>
+            </div>
+
+            <!-- Categories Scroll -->
+            <div class="categories-scroll">
+                <div class="category-item active" data-category="all">
+                    <i class="fas fa-utensils"></i>
+                    <span>All</span>
+                </div>
+                <div class="category-item" data-category="burger">
+                    <i class="fas fa-hamburger"></i>
+                    <span>Burgers</span>
+                </div>
+                <div class="category-item" data-category="pizza">
+                    <i class="fas fa-pizza-slice"></i>
+                    <span>Pizza</span>
+                </div>
+                <div class="category-item" data-category="rice">
+                    <i class="fas fa-egg"></i>
+                    <span>Rice</span>
+                </div>
+                <div class="category-item" data-category="drink">
+                    <i class="fas fa-coffee"></i>
+                    <span>Drinks</span>
+                </div>
+                <div class="category-item" data-category="dessert">
+                    <i class="fas fa-ice-cream"></i>
+                    <span>Desserts</span>
+                </div>
+            </div>
+
+            <!-- Menu Items -->
+            <div class="menu-header">
+                <h3>🍽️ Today's Special</h3>
+                <span id="itemCount">12 items</span>
+            </div>
+            <div id="menu" class="menu-grid"></div>
+
+            <!-- Floating Cart Button -->
+            <div id="cartFloating" class="cart-floating" onclick="openCartModal()">
+                <i class="fas fa-shopping-cart"></i>
+                <span id="floatingCartCount">0</span>
+            </div>
+
+            <!-- Cart Modal -->
+            <div id="cartModal" class="modal">
+                <div class="modal-content cart-modal">
+                    <div class="modal-header">
+                        <h3>Your Cart 🛒</h3>
+                        <i class="fas fa-times" onclick="closeCartModal()"></i>
+                    </div>
+                    <div id="cartItems" class="cart-items"></div>
+                    <div class="promo-section">
+                        <input type="text" id="promoCode" placeholder="Enter promo code">
+                        <button onclick="applyPromo()">Apply</button>
+                    </div>
+                    <div class="cart-summary">
+                        <div class="summary-row">
+                            <span>Subtotal:</span>
+                            <span>Rs. <span id="subtotal">0</span></span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Delivery Fee:</span>
+                            <span>Rs. <span id="deliveryFee">150</span></span>
+                        </div>
+                        <div class="summary-row discount-row" id="discountRow" style="display: none;">
+                            <span>Discount:</span>
+                            <span>-Rs. <span id="discount">0</span></span>
+                        </div>
+                        <div class="summary-row total-row">
+                            <span>Total:</span>
+                            <span>Rs. <span id="cartTotal">0</span></span>
+                        </div>
+                    </div>
+                    <button class="checkout-btn" onclick="proceedToCheckout()">Proceed to Checkout ➜</button>
+                </div>
+            </div>
+
+            <!-- Checkout Modal -->
+            <div id="checkoutModal" class="modal">
+                <div class="modal-content checkout-modal">
+                    <h3>Delivery Details 📋</h3>
+                    
+                    <div class="form-group">
+                        <label>Delivery Address</label>
+                        <textarea id="deliveryAddress" rows="2" placeholder="Enter your full address"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Special Instructions (optional)</label>
+                        <textarea id="specialInstructions" rows="2" placeholder="Any special requests?"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Payment Method</label>
+                        <select id="paymentMethod">
+                            <option value="cod">💵 Cash on Delivery</option>
+                            <option value="card">💳 Card Payment (Demo)</option>
+                            <option value="online">🏦 Online Banking (Demo)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="estimated-time">
+                        <i class="fas fa-clock"></i>
+                        <span>Estimated Delivery: 25-35 minutes</span>
+                    </div>
+                    
+                    <button class="place-order-btn" onclick="placeOrder()">Place Order 🚀</button>
+                </div>
+            </div>
+
+            <!-- Order Tracking Modal -->
+            <div id="trackingModal" class="modal">
+                <div class="modal-content tracking-modal">
+                    <div class="tracking-header">
+                        <h3>Order Tracking 🚚</h3>
+                        <span id="orderId"></span>
+                    </div>
+                    
+                    <div class="tracking-steps">
+                        <div class="step" id="step1">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Order Confirmed</span>
+                        </div>
+                        <div class="step" id="step2">
+                            <i class="fas fa-utensils"></i>
+                            <span>Preparing</span>
+                        </div>
+                        <div class="step" id="step3">
+                            <i class="fas fa-motorcycle"></i>
+                            <span>Out for Delivery</span>
+                        </div>
+                        <div class="step" id="step4">
+                            <i class="fas fa-home"></i>
+                            <span>Delivered</span>
+                        </div>
+                    </div>
+                    
+                    <div class="tracking-info">
+                        <div id="trackingStatus" class="tracking-status">Preparing your order...</div>
+                        <div id="trackingTimer" class="tracking-timer"></div>
+                    </div>
+                    
+                    <button onclick="closeTrackingModal()" class="close-track-btn">Close</button>
+                </div>
+            </div>
+
+            <!-- Rating Modal -->
+            <div id="ratingModal" class="modal">
+                <div class="modal-content rating-modal">
+                    <h3>Rate Your Order ⭐</h3>
+                    <div class="stars">
+                        <i class="far fa-star" data-rating="1"></i>
+                        <i class="far fa-star" data-rating="2"></i>
+                        <i class="far fa-star" data-rating="3"></i>
+                        <i class="far fa-star" data-rating="4"></i>
+                        <i class="far fa-star" data-rating="5"></i>
+                    </div>
+                    <textarea id="reviewText" placeholder="Share your experience..."></textarea>
+                    <button onclick="submitRating()" class="submit-rating-btn">Submit Review</button>
+                </div>
+            </div>
+
+            <!-- Toast Notification -->
+            <div id="toast" class="toast"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
